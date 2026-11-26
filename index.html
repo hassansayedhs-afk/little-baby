@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open When… | For Rawan ❤️</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Playfair Display, Lora, Caveat, Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: '#FDF8F5',
+                        paper: '#FFFDFB',
+                        roseSoft: '#F6E6E8',
+                        roseDusty: '#D47A84',
+                        roseDeep: '#B55D67',
+                        goldFoil: '#C5A059',
+                        goldLight: '#E5CE9E',
+                        inkDark: '#4A3B3C',
+                        inkMuted: '#7D686A'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        bodySerif: ['Lora', 'serif'],
+                        handwriting: ['Caveat', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base & Paper Texture Styling */
+        body {
+            background-color: #FDF8F5;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(212, 122, 132, 0.08) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(197, 160, 89, 0.08) 0px, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d47a84' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            color: #4A3B3C;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Floating Ambient Particles Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 3D Envelope Architecture */
+        .envelope-wrapper {
+            perspective: 1200px;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-6px);
+        }
+
+        .envelope-wrapper:active {
+            transform: scale(0.98);
+        }
+
+        .envelope-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10.5;
+            background: linear-gradient(145deg, #FFFDFB 0%, #F9EFEA 100%);
+            border-radius: 14px;
+            box-shadow: 
+                0 10px 25px -5px rgba(181, 93, 103, 0.12),
+                0 4px 10px -3px rgba(197, 160, 89, 0.08),
+                inset 0 0 0 1px rgba(212, 122, 132, 0.25);
+            overflow: visible;
+            transform-style: preserve-3d;
+            transition: box-shadow 0.4s ease;
+        }
+
+        .envelope-wrapper:hover .envelope-box {
+            box-shadow: 
+                0 18px 35px -8px rgba(181, 93, 103, 0.2),
+                0 6px 15px -4px rgba(197, 160, 89, 0.15),
+                inset 0 0 0 1.5px rgba(212, 122, 132, 0.45);
+        }
+
+        /* Special 7th Envelope Styling */
+        .envelope-special .envelope-box {
+            background: linear-gradient(145deg, #FFFBF4 0%, #F7EBDD 100%);
+            box-shadow: 
+                0 12px 30px -5px rgba(197, 160, 89, 0.22),
+                inset 0 0 0 1.5px rgba(197, 160, 89, 0.55);
+        }
+
+        /* Envelope Top Flap */
+        .envelope-flap-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 58%;
+            transform-origin: top center;
+            transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.3s;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .envelope-wrapper.opening .envelope-flap-top {
+            transform: rotateX(180deg);
+            z-index: 5;
+        }
+
+        /* Mini Letter Card Slide-out */
+        .envelope-letter-peek {
+            position: absolute;
+            bottom: 8%;
+            left: 7%;
+            right: 7%;
+            height: 75%;
+            background: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            border: 1px solid rgba(197, 160, 89, 0.25);
+            z-index: 10;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.18s;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 10px;
+        }
+
+        .envelope-wrapper.opening .envelope-letter-peek {
+            transform: translateY(-40%);
+        }
+
+        /* Wax Seal Styling */
+        .wax-seal {
+            position: absolute;
+            top: 46%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #E08E97, #B55D67 70%, #94444E 100%);
+            box-shadow: 
+                0 4px 10px rgba(148, 68, 78, 0.35),
+                inset 0 2px 4px rgba(255, 255, 255, 0.35),
+                inset 0 -2px 5px rgba(74, 28, 34, 0.4);
+            z-index: 25;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s ease, opacity 0.35s ease;
+            border: 2px dashed rgba(255, 235, 238, 0.38);
+        }
+
+        .envelope-special .wax-seal {
+            background: radial-gradient(circle at 30% 30%, #DFC080, #C5A059 70%, #9E7B36 100%);
+            box-shadow: 
+                0 4px 12px rgba(158, 123, 54, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.45),
+                inset 0 -2px 5px rgba(102, 77, 27, 0.4);
+        }
+
+        .envelope-wrapper.opening .wax-seal {
+            transform: translate(-50%, -50%) scale(0.7);
+            opacity: 0;
+        }
+
+        /* Lined Stationery Paper inside Modal */
+        .letter-paper {
+            background-color: #FFFDFB;
+            background-image: linear-gradient(rgba(212, 122, 132, 0.08) 1px, transparent 1px);
+            background-size: 100% 2.1rem;
+            line-height: 2.1rem;
+            box-shadow: 
+                0 25px 50px -12px rgba(74, 59, 60, 0.25),
+                0 0 0 1px rgba(197, 160, 89, 0.3);
+        }
+
+        /* Custom Scrollbar for Letter */
+        .letter-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .letter-scroll::-webkit-scrollbar-track {
+            background: rgba(246, 230, 232, 0.4);
+            border-radius: 10px;
+        }
+        .letter-scroll::-webkit-scrollbar-thumb {
+            background: rgba(212, 122, 132, 0.5);
+            border-radius: 10px;
+        }
+
+        /* Modal Animations */
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes letterSlideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(35px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .modal-backdrop-enter {
+            animation: modalFadeIn 0.35s ease forwards;
+        }
+        .modal-card-enter {
+            animation: letterSlideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        /* Gentle Glow for 7th Envelope when unlocked */
+        @keyframes gentleGlow {
+            0%, 100% { box-shadow: 0 12px 30px -5px rgba(197, 160, 89, 0.25), inset 0 0 0 1.5px rgba(197, 160, 89, 0.6); }
+            50% { box-shadow: 0 15px 38px -3px rgba(197, 160, 89, 0.48), inset 0 0 0 2px rgba(197, 160, 89, 0.9); }
+        }
+        .unlocked-glow .envelope-box {
+            animation: gentleGlow 3s infinite ease-in-out;
+        }
+
+        /* Vintage Polaroid Frame & Translucent Washi Tape Styling */
+        @keyframes polaroidReveal {
+            from {
+                opacity: 0;
+                transform: translateY(16px) rotate(-2.5deg) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(-1.5deg) scale(1);
+            }
+        }
+
+        .polaroid-card {
+            position: relative;
+            background: #FFFFFF;
+            padding: 12px 12px 16px 12px;
+            border-radius: 6px;
+            box-shadow:
+                0 12px 28px -6px rgba(74, 59, 60, 0.16),
+                0 4px 10px -2px rgba(197, 160, 89, 0.12),
+                inset 0 0 0 1px rgba(197, 160, 89, 0.22);
+            transform: rotate(-1.5deg);
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+            animation: polaroidReveal 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+        }
+
+        .polaroid-card:hover {
+            transform: rotate(0deg) scale(1.025);
+            box-shadow:
+                0 18px 36px -6px rgba(181, 93, 103, 0.22),
+                0 6px 15px -3px rgba(197, 160, 89, 0.18),
+                inset 0 0 0 1px rgba(212, 122, 132, 0.35);
+        }
+
+        .washi-tape {
+            position: absolute;
+            top: -11px;
+            left: 50%;
+            transform: translateX(-50%) rotate(2deg);
+            width: 96px;
+            height: 24px;
+            background: linear-gradient(135deg, rgba(246, 230, 232, 0.85), rgba(229, 206, 158, 0.65));
+            backdrop-filter: blur(2px);
+            border-left: 1px dashed rgba(197, 160, 89, 0.35);
+            border-right: 1px dashed rgba(197, 160, 89, 0.35);
+            box-shadow: 0 2px 5px rgba(74, 59, 60, 0.08);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .polaroid-photo-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            border-radius: 3px;
+            background-color: #F6E6E8;
+            box-shadow: inset 0 0 12px rgba(74, 59, 60, 0.08);
+        }
+
+        .polaroid-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+        }
+
+        .polaroid-card:hover .polaroid-photo-frame img {
+            transform: scale(1.04);
+        }
+
+        /* Password Lock Screen Animations & Styling */
+        @keyframes lockShake {
+            0%, 100% { transform: translateX(0); }
+            18% { transform: translateX(-9px); }
+            36% { transform: translateX(8px); }
+            54% { transform: translateX(-6px); }
+            72% { transform: translateX(5px); }
+            90% { transform: translateX(-2px); }
+        }
+
+        .lock-shake {
+            animation: lockShake 0.48s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        #lock-screen {
+            background-color: rgba(253, 248, 245, 0.96);
+            background-image:
+                radial-gradient(at 20% 20%, rgba(212, 122, 132, 0.14) 0px, transparent 55%),
+                radial-gradient(at 80% 80%, rgba(197, 160, 89, 0.14) 0px, transparent 55%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        #lock-screen.unlocked-fade {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            display: none !important;
+        }
+
+        #main-app-content {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.45s ease;
+        }
+
+        #lock-screen.unlocked-fade {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .lock-crest-seal {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #E08E97, #B55D67 70%, #94444E 100%);
+            box-shadow:
+                0 8px 20px rgba(148, 68, 78, 0.32),
+                0 0 0 4px rgba(197, 160, 89, 0.35),
+                inset 0 2px 5px rgba(255, 255, 255, 0.4),
+                inset 0 -3px 6px rgba(74, 28, 34, 0.45);
+            border: 2px dashed rgba(255, 235, 238, 0.45);
+        }
+    </style>
+</head>
+<body class="selection:bg-roseSoft selection:text-roseDeep relative">
+
+    <!-- Floating Soft Petals & Hearts Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Romantic Password Lock Screen Overlay -->
+    <div id="lock-screen" class="fixed inset-0 z-40 flex items-center justify-center p-4 sm:p-6">
+        <div id="lock-card" class="relative w-full max-w-md bg-paper/95 rounded-3xl p-7 sm:p-9 shadow-2xl border border-goldFoil/40 text-center">
+            <!-- Decorative Corner Accents -->
+            <div class="inline-flex items-center justify-center lock-crest-seal mx-auto mb-5">
+                <span class="font-serif italic font-bold text-white text-3xl drop-shadow leading-none">R</span>
+            </div>
+
+            <span class="text-[11px] uppercase tracking-[0.2em] text-goldFoil font-semibold block mb-1.5">
+                Sealed With Love
+            </span>
+
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-inkDark leading-snug mb-2">
+                A Private Keepsake for <span class="italic text-roseDeep">Rawan</span>
+            </h2>
+
+            <p class="font-bodySerif text-sm sm:text-base text-inkMuted mb-6 leading-relaxed">
+                Enter our secret word to unlock your letters
+            </p>
+
+            <form id="lock-form" onsubmit="handleUnlockSubmit(event)" class="space-y-4">
+                <div class="relative">
+                    <input
+                        id="password-input"
+                        type="password"
+                        autocomplete="off"
+                        autocapitalize="none"
+                        spellcheck="false"
+                        placeholder="Secret word..."
+                        class="w-full px-4 py-3.5 pr-12 rounded-2xl bg-parchment/90 border border-roseDusty/35 text-center font-bodySerif text-base sm:text-lg text-inkDark placeholder:text-inkMuted/50 focus:outline-none focus:border-roseDeep focus:ring-2 focus:ring-roseDusty/25 transition-all"
+                    />
+                    <button
+                        type="button"
+                        onclick="togglePasswordVisibility()"
+                        aria-label="Show or hide password"
+                        class="absolute right-3.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full text-inkMuted hover:text-roseDeep flex items-center justify-center transition-colors"
+                    >
+                        <i id="password-eye-icon" class="fa-regular fa-eye text-sm"></i>
+                    </button>
+                </div>
+
+                <!-- Error Feedback -->
+                <p id="lock-error-msg" class="hidden text-xs sm:text-sm font-bodySerif italic text-roseDeep bg-roseSoft/70 border border-roseDusty/25 rounded-xl py-2 px-3">
+                    Not quite, my love — try again
+                </p>
+
+                <button
+                    type="submit"
+                    class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-roseDeep to-roseDusty hover:from-roseDusty hover:to-roseDeep text-white font-medium text-sm sm:text-base shadow-md hover:shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                >
+                    <i class="fa-solid fa-key text-xs text-goldLight"></i>
+                    <span>Unlock Letters</span>
+                </button>
+            </form>
+
+            <!-- Subtle Hint Section -->
+            <div class="mt-5 pt-4 border-t border-roseDusty/15">
+                <button
+                    type="button"
+                    onclick="revealLockHint()"
+                    id="hint-trigger-btn"
+                    class="text-xs text-inkMuted hover:text-roseDeep underline underline-offset-4 transition-colors py-1 px-2"
+                >
+                    Need a hint?
+                </button>
+                <p id="lock-hint-text" class="hidden mt-2 text-xs sm:text-sm font-bodySerif italic text-goldFoil bg-goldLight/15 border border-goldFoil/25 rounded-xl py-2 px-3">
+                    Hint: My favorite nickname for you
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Floating Controls (Progress, Re-lock & Sound) -->
+    <div id="main-app-content" class="relative z-10">
+    <div class="relative z-10 max-w-5xl mx-auto px-4 pt-5 flex items-center justify-between text-sm">
+        <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-roseDusty/20 shadow-sm text-inkMuted">
+            <span class="w-2 h-2 rounded-full bg-roseDusty animate-pulse"></span>
+            <span id="progress-text" class="font-medium text-xs sm:text-sm">0 of 7 opened</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button id="relock-btn" onclick="relockKeepsake()" class="inline-flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 sm:gap-1.5 bg-white/80 hover:bg-white backdrop-blur-sm rounded-full border border-roseDusty/25 shadow-sm text-inkMuted hover:text-roseDeep transition-all active:scale-95" title="Lock letters again">
+                <i class="fa-solid fa-lock text-roseDusty text-xs"></i>
+                <span class="hidden sm:inline text-xs font-medium">Lock</span>
+            </button>
+
+            <button id="sound-toggle" onclick="toggleSound()" class="inline-flex items-center gap-2 bg-white/80 hover:bg-white backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-goldFoil/30 shadow-sm text-inkDark transition-all active:scale-95" title="Toggle soft chime sound">
+                <i id="sound-icon" class="fa-solid fa-volume-high text-goldFoil text-xs"></i>
+                <span id="sound-label" class="text-xs font-medium">Sound On</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="relative z-10 max-w-3xl mx-auto px-5 pt-8 pb-10 text-center">
+        <div class="inline-flex items-center gap-1.5 mb-3 px-4 py-1 rounded-full bg-roseSoft/75 border border-roseDusty/25 text-roseDeep text-xs sm:text-sm font-medium tracking-wide">
+            <span>For Rawan ❤️</span>
+        </div>
+        
+        <h1 class="font-serif text-4xl sm:text-6xl font-bold text-inkDark mb-3 tracking-tight leading-tight">
+            Open <span class="italic text-roseDeep font-medium">When…</span>
+        </h1>
+        
+        <p class="font-bodySerif text-base sm:text-lg text-inkMuted max-w-xl mx-auto leading-relaxed mt-3">
+            A little collection of letters written just for you, <span class="text-roseDeep font-semibold underline decoration-goldFoil/60 decoration-wavy underline-offset-4">Rawan</span>. Whenever you need comfort, reassurance, or a reminder of how much you mean to me, choose an envelope and break the seal.
+        </p>
+
+        <!-- Ornamental Divider -->
+        <div class="flex items-center justify-center gap-3 mt-6 opacity-75">
+            <div class="h-[1px] w-16 bg-gradient-to-r from-transparent to-goldFoil"></div>
+            <i class="fa-solid fa-heart text-roseDusty text-xs"></i>
+            <div class="h-[1px] w-16 bg-gradient-to-l from-transparent to-goldFoil"></div>
+        </div>
+    </header>
+
+    <!-- Envelopes Grid Section -->
+    <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pb-16">
+        <!-- First 6 Envelopes Grid -->
+        <div id="envelopes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <!-- Envelopes 1 to 6 will be injected here via JS -->
+        </div>
+
+        <!-- Special 7th Envelope Centerpiece -->
+        <div id="special-envelope-container" class="mt-10 sm:mt-14 max-w-md mx-auto">
+            <!-- Envelope 7 will be injected here via JS -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 max-w-3xl mx-auto px-4 pb-10 pt-4 text-center border-t border-roseDusty/15">
+        <p class="font-bodySerif italic text-xs sm:text-sm text-inkMuted mb-3">
+            Every word here was written with you in mind, Rawan ❤️
+        </p>
+        <button onclick="askResetProgress()" class="text-xs text-inkMuted/75 hover:text-roseDeep underline underline-offset-4 transition-colors py-1.5 px-3 rounded-lg">
+            Reseal all envelopes
+        </button>
+    </footer>
+    </div>
+
+    <!-- Letter Reading Modal -->
+    <div id="letter-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-inkDark/45 backdrop-blur-sm">
+        <div id="letter-modal-card" class="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-2xl overflow-hidden letter-paper border border-goldFoil/40">
+            
+            <!-- Top Decorative Ribbon -->
+            <div id="modal-top-bar" class="px-5 sm:px-8 pt-5 pb-3.5 bg-gradient-to-b from-roseSoft/65 to-transparent flex items-center justify-between border-b border-roseDusty/15 shrink-0">
+                <div class="flex items-center gap-3">
+                    <span id="modal-badge-icon" class="w-9 h-9 rounded-full bg-roseDusty/15 text-roseDeep flex items-center justify-center text-sm shrink-0">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                    </span>
+                    <div>
+                        <span class="text-[11px] uppercase tracking-wider text-inkMuted block leading-none mb-1">A Letter For Rawan</span>
+                        <h2 id="modal-title" class="font-serif text-base sm:text-xl font-bold text-roseDeep leading-tight">Envelope Title</h2>
+                    </div>
+                </div>
+                
+                <button onclick="closeLetterModal()" class="w-9 h-9 rounded-full bg-white/85 hover:bg-roseSoft text-inkMuted hover:text-roseDeep flex items-center justify-center transition-colors shadow-sm border border-roseDusty/20 shrink-0" aria-label="Close letter">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+
+            <!-- Scrollable Letter Body -->
+            <div class="p-6 sm:p-9 overflow-y-auto letter-scroll flex-1">
+                <div id="modal-greeting" class="font-handwriting text-2xl sm:text-3xl text-roseDeep mb-4">
+                    My dearest Rawan,
+                </div>
+                
+                <div id="modal-body" class="font-bodySerif text-base sm:text-[17px] text-inkDark space-y-4 font-normal">
+                    <!-- Letter paragraphs go here -->
+                </div>
+
+                <!-- Vintage Polaroid Photo Keepsake -->
+                <div id="modal-photo-section" class="my-8 flex justify-center px-2">
+                    <div class="polaroid-card w-full max-w-[270px] sm:max-w-[300px]">
+                        <div class="washi-tape"></div>
+                        <div class="polaroid-photo-frame">
+                            <img id="modal-photo-img" src="" alt="Rawan memory keepsake" loading="lazy" />
+                        </div>
+                        <div class="pt-3.5 pb-0.5 px-1 text-center">
+                            <p id="modal-photo-caption" class="font-handwriting text-xl sm:text-[22px] text-inkDark leading-snug">
+                                Always my favorite view ❤️
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Signature -->
+                <div class="mt-6 pt-4 border-t border-goldFoil/25 flex flex-col items-end">
+                    <p class="font-handwriting text-2xl sm:text-3xl text-roseDeep">Always right beside you ❤️</p>
+                    <span class="text-xs text-inkMuted mt-0.5 font-sans">With all my love</span>
+                </div>
+            </div>
+
+            <!-- Bottom Action Bar -->
+            <div class="px-5 py-3.5 bg-parchment/90 border-t border-roseDusty/15 flex items-center justify-between shrink-0">
+                <span class="text-xs text-inkMuted">
+                    <i class="fa-solid fa-heart text-roseDusty mr-1"></i> Kept safe for you
+                </span>
+                <button onclick="closeLetterModal()" class="px-5 py-2 rounded-xl bg-roseDeep hover:bg-roseDusty text-white text-sm font-medium transition-all shadow-sm active:scale-95">
+                    Fold Back & Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Gentle Hint / Confirmation Modal -->
+    <div id="hint-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-inkDark/45 backdrop-blur-sm">
+        <div class="bg-paper rounded-2xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-goldFoil/40 text-center modal-card-enter">
+            <div id="hint-icon" class="w-14 h-14 rounded-full bg-goldLight/30 text-goldFoil mx-auto mb-4 flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 id="hint-title" class="font-serif text-xl font-bold text-inkDark mb-2">Wait just a moment, Rawan ❤️</h3>
+            <p id="hint-message" class="font-bodySerif text-sm sm:text-base text-inkMuted leading-relaxed mb-6">
+                This final envelope is meant to be opened after you've read the first six letters. Would you like to finish those first, or open it now anyway?
+            </p>
+            <div id="hint-actions" class="flex flex-col sm:flex-row gap-2.5 justify-center">
+                <!-- Buttons injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. LETTERS & POLAROID MEMORIES DATA
+        // ==========================================
+        const envelopesData = [
+            {
+                id: 1,
+                title: "Open When You're Sad",
+                subtitle: "For heavy days when your heart needs a quiet hug",
+                icon: "fa-cloud-rain",
+                greeting: "My dearest Rawan,",
+                isSpecial: false,
+                photo: "WhatsApp Image 2026-11-26 at 4.28.41 PM (2).jpeg",
+                photoCaption: "Even on your quietest days, you mean the world to me ❤️",
+                paragraphs: [
+                    "If you're opening this right now, I wish I could reach through the screen and hold your hand without saying a word until your heart feels lighter.",
+                    "Whatever made today feel heavy, please remember you don't have to carry it all by yourself. You are allowed to pause, breathe, and let things out without pretending you're okay.",
+                    "Bad days pass, Rawan, even when they feel endless in the middle of them. Take a deep breath for me—you're stronger than this moment, and I'm right here beside you through all of it."
+                ]
+            },
+            {
+                id: 2,
+                title: "Open When You Miss Me",
+                subtitle: "Whenever distance feels a little too loud",
+                icon: "fa-heart",
+                greeting: "Hey my love,",
+                isSpecial: false,
+                photo: "WhatsApp Image 2026-11-26 at 4.28.41 PM (1).jpeg",
+                photoCaption: "Always right here with you, no matter the distance ✨",
+                paragraphs: [
+                    "If you're missing me right now, I promise there's a 99% chance I was just thinking about you too. You cross my mind in the middle of the most random moments of my day.",
+                    "Close your eyes for a second and imagine my voice telling you how much I adore you. Distance or busy hours can never change how close you are to my heart.",
+                    "Whenever you feel that little ache of missing me, read this and remember: you are always my favorite place to come back to."
+                ]
+            },
+            {
+                id: 3,
+                title: "Open When You Feel Like You're Not Enough",
+                subtitle: "A gentle reminder of your true worth",
+                icon: "fa-sparkles",
+                greeting: "To the girl who is more than enough,",
+                isSpecial: false,
+                photo: "WhatsApp Image 2026-11-26 at 4.28.41 PM.jpeg",
+                photoCaption: "You don't have to be perfect to be deeply loved 🌸",
+                paragraphs: [
+                    "Stop right there and don't let overthinking lie to you today. Whenever your mind starts whispering that you're falling short, I need you to borrow my eyes for a minute.",
+                    "You don't have to be flawless, endlessly productive, or strong every single second to deserve love. Who you are—your kindness, your effort, your soft heart—is already more than enough.",
+                    "Be gentle with yourself, Rory. You are doing so much better than you give yourself credit for, and I am endlessly proud of you."
+                ]
+            },
+            {
+                id: 4,
+                title: "Open When You're Happy",
+                subtitle: "To celebrate every smile you wear today",
+                icon: "fa-sun",
+                greeting: "My smiling Rawan,",
+                isSpecial: false,
+                photo: "WhatsApp Image 2026-11-26 at 4.28.53 PM (1).jpeg",
+                photoCaption: "Your happiness is honestly my favorite sight in the world ☀️",
+                paragraphs: [
+                    "If you opened this because something made you smile or laugh today, pause for a second and soak in every bit of that feeling!",
+                    "Seeing you genuinely happy is one of my favorite things in this entire world. When your eyes light up, everything around you feels warmer and brighter.",
+                    "Hold onto this joy, celebrate your wins—big or small—and never forget that you deserve a lifetime full of moments just like this."
+                ]
+            },
+            {
+                id: 5,
+                title: "Open When You Want to Know How I See You",
+                subtitle: "Through my eyes, every single day",
+                icon: "fa-eye",
+                greeting: "My favorite person,",
+                isSpecial: false,
+                photo: "WhatsApp Image 2026-11-26 at 4.28.53 PM.jpeg",
+                photoCaption: "The prettiest soul I've ever known 💖",
+                paragraphs: [
+                    "If you ever wonder how I see you, the truth is simple: you are the rarest combination of warmth, beauty, and pure sincerity I have ever met.",
+                    "I notice the little things you think no one sees—the way you care so deeply, the softness in your voice, and the quiet grace you bring into my life just by being you.",
+                    "To me, Rawan, you aren't just someone I love—you are my peace, my favorite story, and the best part of my days."
+                ]
+            },
+            {
+                id: 6,
+                title: "Open When You Want to Know What I Wish for Us",
+                subtitle: "Every quiet hope I hold for our tomorrow",
+                icon: "fa-star",
+                greeting: "My partner in everything,",
+                isSpecial: false,
+                photo: "WhatsApp Image 2026-11-26 at 4.28.40 PM.jpeg",
+                photoCaption: "Here's to every tomorrow we get to share 🌙",
+                paragraphs: [
+                    "When I think about what I wish for us, I don't just wish for grand moments—I wish for all the simple, quiet ones too.",
+                    "I wish for late-night talks where time disappears, inside jokes nobody else understands, and standing beside each other through every season life brings.",
+                    "Most of all, I wish for us to always feel like home to one another—safe, understood, and choosing each other over and over again."
+                ]
+            },
+            {
+                id: 7,
+                title: "Open When You've Finished All Envelopes…",
+                subtitle: "The final seal—and the start of something even sweeter",
+                icon: "fa-crown",
+                greeting: "My forever Rawan,",
+                isSpecial: true,
+                photo: "WhatsApp Image 2026-11-26 at 4.28.41 PM (3).jpeg",
+                photoCaption: "Not an ending—just the beginning of everything ahead ❤️",
+                paragraphs: [
+                    "You made it to the seventh envelope. Every single word you just read came straight from my heart, written so that no matter what mood or season you're in, you always have a piece of me right there with you.",
+                    "This isn't the end of a story—it's just a reminder that every day we share is a brand-new page waiting to be written together.",
+                    "Thank you for being you, for being my Rory, and for letting me love you. Whenever you're ready, text me—because the best chapters are still ahead of us. ❤️"
+                ]
+            }
+        ];
+
+        // ==========================================
+        // 2. STATE MANAGEMENT (localStorage & Password Lock)
+        // ==========================================
+        const STORAGE_KEY = 'rawan_open_when_en_v1';
+        const SESSION_UNLOCK_KEY = 'rawan_keepsake_unlocked_v1';
+        const SECRET_PASSCODE = 'rory';
+        let openedEnvelopes = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        let soundEnabled = true;
+
+        function initLockScreen() {
+            const lockScreen = document.getElementById('lock-screen');
+            const mainContent = document.getElementById('main-app-content');
+            const isUnlocked = sessionStorage.getItem(SESSION_UNLOCK_KEY) === 'true';
+
+            if (mainContent) {
+                mainContent.style.display = 'block';
+                mainContent.style.opacity = '1';
+                mainContent.style.visibility = 'visible';
+            }
+
+            if (isUnlocked && lockScreen) {
+                lockScreen.classList.add('unlocked-fade');
+                lockScreen.style.display = 'none';
+            } else if (lockScreen) {
+                lockScreen.style.display = 'flex';
+                lockScreen.classList.remove('unlocked-fade');
+                setTimeout(() => {
+                    const input = document.getElementById('password-input');
+                    if (input) input.focus();
+                }, 150);
+            }
+        }
+
+        function handleUnlockSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById('password-input');
+            const lockCard = document.getElementById('lock-card');
+            const errorMsg = document.getElementById('lock-error-msg');
+            const lockScreen = document.getElementById('lock-screen');
+            const mainContent = document.getElementById('main-app-content');
+
+            const entered = (input.value || '').trim().toLowerCase();
+
+            if (entered === SECRET_PASSCODE) {
+                errorMsg.classList.add('hidden');
+                sessionStorage.setItem(SESSION_UNLOCK_KEY, 'true');
+                playPaperChime(true);
+
+                // Ensure envelopes are rendered and main container is fully visible
+                renderEnvelopes();
+                if (mainContent) {
+                    mainContent.style.display = 'block';
+                    mainContent.style.opacity = '1';
+                    mainContent.style.visibility = 'visible';
+                }
+
+                // Fade and completely hide lock screen overlay
+                lockScreen.classList.add('unlocked-fade');
+                lockScreen.style.display = 'none';
+                input.value = '';
+            } else {
+                errorMsg.classList.remove('hidden');
+                lockCard.classList.remove('lock-shake');
+                void lockCard.offsetWidth; // trigger reflow to restart animation
+                lockCard.classList.add('lock-shake');
+                input.focus();
+                input.select();
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById('password-input');
+            const icon = document.getElementById('password-eye-icon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-regular fa-eye-slash text-sm text-roseDeep';
+            } else {
+                input.type = 'password';
+                icon.className = 'fa-regular fa-eye text-sm';
+            }
+        }
+
+        function revealLockHint() {
+            const hintText = document.getElementById('lock-hint-text');
+            const triggerBtn = document.getElementById('hint-trigger-btn');
+            hintText.classList.remove('hidden');
+            triggerBtn.classList.add('hidden');
+        }
+
+        function relockKeepsake() {
+            closeLetterModal();
+            closeHintModal();
+            sessionStorage.removeItem(SESSION_UNLOCK_KEY);
+            const lockScreen = document.getElementById('lock-screen');
+            const input = document.getElementById('password-input');
+            const errorMsg = document.getElementById('lock-error-msg');
+            errorMsg.classList.add('hidden');
+            input.value = '';
+            lockScreen.style.display = 'flex';
+            lockScreen.classList.remove('unlocked-fade');
+            setTimeout(() => input.focus(), 200);
+        }
+
+        function saveOpenedState(id) {
+            if (!openedEnvelopes.includes(id)) {
+                openedEnvelopes.push(id);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(openedEnvelopes));
+                renderEnvelopes();
+            }
+        }
+
+        // ==========================================
+        // 3. WEB AUDIO API (Soft Gentle Chime)
+        // ==========================================
+        let audioCtx = null;
+
+        function playPaperChime(isSpecial = false) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const now = audioCtx.currentTime;
+                const notes = isSpecial ? [523.25, 659.25, 783.99, 1046.50] : [523.25, 659.25, 783.99];
+                
+                notes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+                    
+                    gain.gain.setValueAtTime(0.001, now + idx * 0.09);
+                    gain.gain.exponentialRampToValueAtTime(0.06, now + idx * 0.09 + 0.04);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.09 + 0.9);
+                    
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    
+                    osc.start(now + idx * 0.09);
+                    osc.stop(now + idx * 0.09 + 0.95);
+                });
+            } catch (e) {
+                // Fail silently if audio is restricted
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            const label = document.getElementById('sound-label');
+            if (soundEnabled) {
+                icon.className = 'fa-solid fa-volume-high text-goldFoil text-xs';
+                label.textContent = 'Sound On';
+                playPaperChime(false);
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-inkMuted text-xs';
+                label.textContent = 'Muted';
+            }
+        }
+
+        // ==========================================
+        // 4. RENDER ENVELOPES
+        // ==========================================
+        function createEnvelopeHTML(env) {
+            const isOpened = openedEnvelopes.includes(env.id);
+            const firstSixOpenedCount = [1, 2, 3, 4, 5, 6].filter(id => openedEnvelopes.includes(id)).length;
+            const isSpecialUnlocked = env.isSpecial && firstSixOpenedCount === 6;
+
+            const specialClass = env.isSpecial ? 'envelope-special' : '';
+            const glowClass = (isSpecialUnlocked && !isOpened) ? 'unlocked-glow' : '';
+            
+            const flapFill = env.isSpecial ? '#F2E2CC' : '#F4E3E5';
+            const pocketFill = env.isSpecial ? '#FAF0E4' : '#FDF3F4';
+            const strokeColor = env.isSpecial ? 'rgba(197, 160, 89, 0.35)' : 'rgba(212, 122, 132, 0.28)';
+
+            let statusBadge = '';
+            if (isOpened) {
+                statusBadge = `
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-roseSoft/90 text-roseDeep border border-roseDusty/25">
+                        <i class="fa-solid fa-check text-[9px]"></i> Opened
+                    </span>
+                `;
+            } else if (env.isSpecial && !isSpecialUnlocked) {
+                statusBadge = `
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-goldLight/30 text-goldFoil border border-goldFoil/30">
+                        <i class="fa-solid fa-lock text-[9px]"></i> Save for last
+                    </span>
+                `;
+            } else if (env.isSpecial && isSpecialUnlocked) {
+                statusBadge = `
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-goldFoil text-white shadow-sm animate-bounce">
+                        <i class="fa-solid fa-sparkles text-[9px]"></i> Ready for you
+                    </span>
+                `;
+            }
+
+            // Wax seal content: "R" monogram on regular envelopes, crown/heart on 7th
+            const sealContent = env.isSpecial 
+                ? `<i class="fa-solid fa-crown text-white/95 text-base drop-shadow"></i>`
+                : `<span class="font-serif italic font-bold text-white/95 text-lg drop-shadow leading-none">R</span>`;
+
+            return `
+                <div id="env-wrapper-${env.id}" onclick="handleEnvelopeClick(${env.id})" class="envelope-wrapper ${specialClass} ${glowClass} select-none">
+                    <div class="envelope-box flex flex-col justify-between p-4 sm:p-5">
+                        
+                        <!-- Inner Sliding Paper Card -->
+                        <div class="envelope-letter-peek">
+                            <span class="font-handwriting text-base text-roseDeep/85">For Rawan ❤️</span>
+                        </div>
+
+                        <!-- Bottom & Side Envelope Pocket SVG -->
+                        <svg class="absolute inset-0 w-full h-full pointer-events-none z-15 rounded-[14px]" viewBox="0 0 320 210" preserveAspectRatio="none">
+                            <polygon points="0,0 160,115 0,210" fill="${pocketFill}" stroke="${strokeColor}" stroke-width="1"/>
+                            <polygon points="320,0 160,115 320,210" fill="${pocketFill}" stroke="${strokeColor}" stroke-width="1"/>
+                            <polygon points="0,210 160,102 320,210" fill="#FFFDFB" stroke="${strokeColor}" stroke-width="1.2"/>
+                        </svg>
+
+                        <!-- Top Animated Flap SVG -->
+                        <div class="envelope-flap-top">
+                            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 320 122" preserveAspectRatio="none">
+                                <polygon points="0,0 320,0 160,118" fill="${flapFill}" stroke="${strokeColor}" stroke-width="1.2"/>
+                            </svg>
+                        </div>
+
+                        <!-- Wax Seal -->
+                        <div class="wax-seal" title="Click to break seal & open">
+                            ${sealContent}
+                        </div>
+
+                        <!-- Top Header inside Envelope Card (Number & Opened Badge) -->
+                        <div class="relative z-30 flex items-center justify-between w-full">
+                            <span class="w-6 h-6 rounded-full bg-white/85 backdrop-blur-xs border border-goldFoil/30 text-[11px] font-semibold text-inkMuted flex items-center justify-center shadow-2xs">
+                                ${env.id}
+                            </span>
+                            <div>${statusBadge}</div>
+                        </div>
+
+                        <!-- Bottom Title Area -->
+                        <div class="relative z-30 mt-auto pt-12 text-center">
+                            <div class="bg-white/92 backdrop-blur-xs rounded-xl px-3.5 py-2.5 border border-roseDusty/15 shadow-2xs">
+                                <h3 class="font-serif text-sm sm:text-base font-bold ${env.isSpecial ? 'text-goldFoil' : 'text-inkDark'} leading-snug">
+                                    ${env.title}
+                                </h3>
+                                <p class="text-[11px] text-inkMuted mt-0.5 line-clamp-1">
+                                    ${env.subtitle}
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderEnvelopes() {
+            const grid = document.getElementById('envelopes-grid');
+            const specialContainer = document.getElementById('special-envelope-container');
+            
+            const regularEnvelopes = envelopesData.filter(e => !e.isSpecial);
+            const specialEnvelope = envelopesData.find(e => e.isSpecial);
+
+            grid.innerHTML = regularEnvelopes.map(createEnvelopeHTML).join('');
+            specialContainer.innerHTML = createEnvelopeHTML(specialEnvelope);
+
+            // Update Progress Counter
+            const progressText = document.getElementById('progress-text');
+            progressText.textContent = `${openedEnvelopes.length} of ${envelopesData.length} opened`;
+        }
+
+        // ==========================================
+        // 5. INTERACTION LOGIC (Opening & Modals)
+        // ==========================================
+        function handleEnvelopeClick(id) {
+            const env = envelopesData.find(e => e.id === id);
+            if (!env) return;
+
+            // Gentle prompt if 7th envelope is clicked before finishing the first 6
+            if (env.isSpecial) {
+                const firstSixOpenedCount = [1, 2, 3, 4, 5, 6].filter(eid => openedEnvelopes.includes(eid)).length;
+                if (firstSixOpenedCount < 6 && !openedEnvelopes.includes(7)) {
+                    const remaining = 6 - firstSixOpenedCount;
+                    showGentleHintModal(
+                        "Save the best for last, Rawan ❤️",
+                        `This seventh envelope was written to be opened after you've read the first six letters (you have ${remaining} ${remaining === 1 ? 'envelope' : 'envelopes'} left). Would you like to read those first, or open it right now?`,
+                        [
+                            {
+                                text: "I'll read the others first ✨",
+                                primary: true,
+                                onClick: closeHintModal
+                            },
+                            {
+                                text: "Open it anyway",
+                                primary: false,
+                                onClick: () => {
+                                    closeHintModal();
+                                    triggerEnvelopeOpenAnimation(env);
+                                }
+                            }
+                        ]
+                    );
+                    return;
+                }
+            }
+
+            triggerEnvelopeOpenAnimation(env);
+        }
+
+        function triggerEnvelopeOpenAnimation(env) {
+            const wrapper = document.getElementById(`env-wrapper-${env.id}`);
+            if (wrapper) {
+                wrapper.classList.add('opening');
+            }
+            
+            playPaperChime(env.isSpecial);
+
+            // Wait for 3D flap + letter slide animation before showing full letter modal
+            setTimeout(() => {
+                openLetterModal(env);
+                saveOpenedState(env.id);
+                if (wrapper) {
+                    wrapper.classList.remove('opening');
+                }
+            }, 520);
+        }
+
+        function openLetterModal(env) {
+            const modal = document.getElementById('letter-modal');
+            const card = document.getElementById('letter-modal-card');
+            
+            document.getElementById('modal-title').textContent = env.title;
+            document.getElementById('modal-greeting').textContent = env.greeting;
+            
+            const badgeIcon = document.getElementById('modal-badge-icon');
+            badgeIcon.innerHTML = `<i class="fa-solid ${env.icon}"></i>`;
+            if (env.isSpecial) {
+                badgeIcon.className = 'w-9 h-9 rounded-full bg-goldLight/40 text-goldFoil flex items-center justify-center text-sm shrink-0';
+            } else {
+                badgeIcon.className = 'w-9 h-9 rounded-full bg-roseDusty/15 text-roseDeep flex items-center justify-center text-sm shrink-0';
+            }
+
+            const bodyContainer = document.getElementById('modal-body');
+            bodyContainer.innerHTML = env.paragraphs
+                .map(p => `<p class="leading-[2.1rem]">${p}</p>`)
+                .join('');
+
+            // Populate Vintage Polaroid Keepsake Photo & Caption
+            const photoSection = document.getElementById('modal-photo-section');
+            const photoImg = document.getElementById('modal-photo-img');
+            const photoCaption = document.getElementById('modal-photo-caption');
+
+            if (env.photo) {
+                photoImg.src = env.photo;
+                photoImg.alt = `${env.title} — Rawan`;
+                photoImg.onerror = function() {
+                    this.onerror = null;
+                    this.src = `https://placehold.co/400x500/F6E6E8/B55D67?text=Rawan+%E2%9D%A4%EF%B8%8F`;
+                };
+                photoCaption.textContent = env.photoCaption || "For Rawan ❤️";
+                photoSection.classList.remove('hidden');
+                photoSection.classList.add('flex');
+            } else {
+                photoSection.classList.add('hidden');
+                photoSection.classList.remove('flex');
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex', 'modal-backdrop-enter');
+            card.classList.add('modal-card-enter');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLetterModal() {
+            const modal = document.getElementById('letter-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex', 'modal-backdrop-enter');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking backdrop
+        document.getElementById('letter-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'letter-modal') {
+                closeLetterModal();
+            }
+        });
+
+        // Close modals on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLetterModal();
+                closeHintModal();
+            }
+        });
+
+        // ==========================================
+        // 6. CUSTOM HINT & RESET MODAL
+        // ==========================================
+        function showGentleHintModal(title, message, buttons, iconClass = 'fa-lock') {
+            const modal = document.getElementById('hint-modal');
+            document.getElementById('hint-icon').innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+            document.getElementById('hint-title').textContent = title;
+            document.getElementById('hint-message').textContent = message;
+            
+            const actionsDiv = document.getElementById('hint-actions');
+            actionsDiv.innerHTML = '';
+            
+            buttons.forEach(btn => {
+                const buttonEl = document.createElement('button');
+                buttonEl.textContent = btn.text;
+                buttonEl.className = btn.primary
+                    ? 'px-5 py-2.5 rounded-xl bg-roseDeep hover:bg-roseDusty text-white text-sm font-medium transition-all shadow-sm cursor-pointer'
+                    : 'px-4 py-2.5 rounded-xl bg-roseSoft/60 hover:bg-roseSoft text-inkDark text-sm font-medium transition-all cursor-pointer';
+                buttonEl.onclick = btn.onClick;
+                actionsDiv.appendChild(buttonEl);
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeHintModal() {
+            const modal = document.getElementById('hint-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        document.getElementById('hint-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'hint-modal') {
+                closeHintModal();
+            }
+        });
+
+        function askResetProgress() {
+            showGentleHintModal(
+                "Reseal all envelopes?",
+                "This will mark all seven envelopes as unopened again so you can experience opening them fresh from the start.",
+                [
+                    {
+                        text: "Yes, reseal them",
+                        primary: true,
+                        onClick: () => {
+                            openedEnvelopes = [];
+                            localStorage.removeItem(STORAGE_KEY);
+                            renderEnvelopes();
+                            closeHintModal();
+                        }
+                    },
+                    {
+                        text: "Keep as is",
+                        primary: false,
+                        onClick: closeHintModal
+                    }
+                ],
+                'fa-envelope'
+            );
+        }
+
+        // ==========================================
+        // 7. AMBIENT FLOATING PETALS & SPARKLES CANVAS
+        // ==========================================
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class AmbientParticle {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = Math.random() * canvas.width;
+                this.y = initial ? Math.random() * canvas.height : canvas.height + 20;
+                this.size = Math.random() * 4 + 2;
+                this.speedY = -(Math.random() * 0.35 + 0.15);
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.35 + 0.1;
+                this.isGold = Math.random() > 0.55;
+                this.wobble = Math.random() * Math.PI * 2;
+                this.wobbleSpeed = Math.random() * 0.02 + 0.005;
+            }
+
+            update() {
+                this.wobble += this.wobbleSpeed;
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.wobble) * 0.25;
+
+                if (this.y < -20 || this.x < -20 || this.x > canvas.width + 20) {
+                    this.reset(false);
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.isGold ? '#C5A059' : '#D47A84';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            resizeCanvas();
+            const count = Math.min(35, Math.floor(window.innerWidth / 32));
+            particles = Array.from({ length: count }, () => new AmbientParticle());
+            animateParticles();
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // ==========================================
+        // 8. INITIALIZE ON LOAD
+        // ==========================================
+        function bootKeepsakeApp() {
+            renderEnvelopes();
+            initLockScreen();
+            initParticles();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bootKeepsakeApp);
+        } else {
+            bootKeepsakeApp();
+        }
+    </script>
+</body>
+</html>
